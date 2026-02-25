@@ -1,189 +1,595 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TasteHub | Homemade Veg Meals – Kannuru</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>TasteHub | Kannuru Nearby – Menu & Order</title>
+<meta name="description" content="TasteHub – Homemade Veg Meals near Kannuru. Order on WhatsApp or Mantae." />
 
 <style>
-body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:#0b0f14;
-  color:#fff;
-}
+  :root{
+    --bg:#0b0f14;
+    --surface:#121824;
+    --card:#151e2d;
+    --stroke:rgba(255,255,255,.10);
+    --text:#f6f7fb;
+    --muted:rgba(246,247,251,.72);
+    --brand:#20c997;
+    --danger:#ff4d4f;
+    --shadow: 0 18px 60px rgba(0,0,0,.55);
+    --r:18px;
+    --r2:24px;
+    --max:1120px;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    color:var(--text);
+    background:
+      radial-gradient(1200px 700px at 15% -10%, rgba(32,201,151,.20), transparent 55%),
+      radial-gradient(900px 600px at 95% 0%, rgba(255,77,79,.12), transparent 55%),
+      linear-gradient(180deg, #080b10, #0b0f14 55%, #080b10);
+    min-height:100vh;
+  }
+  a{color:inherit; text-decoration:none}
+  .wrap{max-width:var(--max); margin:0 auto; padding:14px 14px 120px;}
 
-header{
-  padding:15px;
-  background:#111827;
-  border-bottom:1px solid #222;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
+  /* Header */
+  .appbar{
+    position:sticky; top:0; z-index:50;
+    background: rgba(11,15,20,.86);
+    backdrop-filter: blur(10px);
+    border-bottom:1px solid rgba(255,255,255,.07);
+  }
+  .appbarInner{
+    max-width:var(--max); margin:0 auto;
+    padding:12px 14px;
+    display:flex; gap:14px; align-items:center; justify-content:space-between;
+  }
+  .brandRow{display:flex; gap:12px; align-items:center; min-width:0;}
+  .logoWrap{
+    width:54px; height:54px; border-radius:18px;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,.15);
+    box-shadow:0 10px 25px rgba(0,0,0,.35);
+    background:rgba(255,255,255,.06);
+    display:grid; place-items:center;
+    flex:0 0 auto;
+  }
+  .logoWrap img{width:100%; height:100%; object-fit:cover; display:block;}
+  .titleBlock{min-width:0;}
+  .titleBlock h1{margin:0; font-size:20px; font-weight:900; letter-spacing:-.3px; line-height:1.1;}
+  .titleBlock .meta{margin:4px 0 0; font-size:12px; color:var(--muted); line-height:1.35;}
+  .chips{display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; align-items:center;}
+  .chip{
+    font-size:12px; font-weight:900;
+    padding:7px 10px;
+    border-radius:999px;
+    background: rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.10);
+    color:rgba(246,247,251,.92);
+    white-space:nowrap;
+  }
+  .chip.brand{background: rgba(32,201,151,.14); border-color: rgba(32,201,151,.28); color:#caffef;}
+  .chip.red{background: rgba(255,77,79,.14); border-color: rgba(255,77,79,.30); color:#ffe1e1;}
 
-.logoWrap{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
+  /* Layout */
+  .grid{
+    margin-top:14px;
+    display:grid;
+    grid-template-columns: 1.35fr .65fr;
+    gap:14px;
+  }
+  @media (max-width: 900px){ .grid{grid-template-columns:1fr;} }
 
-.logoWrap img{
-  width:55px;
-  height:55px;
-  border-radius:16px;
-  object-fit:cover;
-  border:1px solid rgba(255,255,255,.2);
-}
+  .panel{
+    background: rgba(18,24,36,.70);
+    border:1px solid rgba(255,255,255,.10);
+    border-radius: var(--r2);
+    box-shadow: var(--shadow);
+    overflow:hidden;
+  }
+  .pad{padding:14px;}
+  .row{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;}
+  .sub{margin:8px 0 0; color:var(--muted); font-size:13px; line-height:1.4;}
 
-h1{
-  margin:0;
-  font-size:20px;
-}
+  /* Tabs */
+  .tabs{
+    display:flex; gap:10px; overflow:auto; padding:12px 14px;
+    border-top:1px solid rgba(255,255,255,.06);
+    border-bottom:1px solid rgba(255,255,255,.06);
+    background: rgba(0,0,0,.18);
+    scrollbar-width:none;
+  }
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{
+    flex:0 0 auto;
+    padding:9px 12px;
+    border-radius:999px;
+    border:1px solid rgba(255,255,255,.10);
+    background: rgba(255,255,255,.06);
+    color:rgba(246,247,251,.92);
+    font-weight:900;
+    font-size:12px;
+    cursor:pointer;
+    user-select:none;
+    transition:.15s transform ease, .15s background ease;
+  }
+  .tab:hover{transform: translateY(-1px); background: rgba(255,255,255,.09);}
+  .tab.active{background: rgba(32,201,151,.14); border-color: rgba(32,201,151,.28); color:#caffef;}
 
-small{
-  color:#bbb;
-  font-size:12px;
-}
+  /* Menu list */
+  .sectionTitle{
+    margin:10px 0 0;
+    padding:0 14px 6px;
+    font-size:12px;
+    color:rgba(246,247,251,.65);
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    font-weight:1000;
+  }
+  .sectionInfo{
+    margin:0 14px 10px;
+    font-size:12px;
+    color: rgba(246,247,251,.72);
+  }
+  .menuGrid{
+    display:grid;
+    grid-template-columns: 1fr;
+    gap:10px;
+    padding:0 14px 14px;
+  }
+  .item{
+    background: rgba(21,30,45,.75);
+    border:1px solid rgba(255,255,255,.10);
+    border-radius: var(--r);
+    padding:12px;
+    display:flex; gap:12px; align-items:flex-start; justify-content:space-between;
+  }
+  .iLeft{min-width:0;}
+  .iTop{display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+  .vegDot{
+    width:10px; height:10px; border-radius:3px;
+    border:1px solid rgba(32,201,151,.55);
+    background: rgba(32,201,151,.25);
+    box-shadow: 0 0 0 3px rgba(32,201,151,.08);
+  }
+  .iname{font-weight:1000; font-size:14px; letter-spacing:-.01em;}
+  .iprice{font-weight:1000; font-size:13px; color:#d9ffe9; margin-top:2px;}
+  .idesc{margin:6px 0 0; color:var(--muted); font-size:12.5px; line-height:1.35;}
+  .iRight{display:flex; flex-direction:column; gap:8px; align-items:flex-end;}
 
-.section{
-  padding:15px;
-}
+  .badge{
+    display:inline-flex; align-items:center; gap:6px;
+    padding:6px 10px;
+    border-radius:999px;
+    border:1px solid rgba(255,255,255,.12);
+    background: rgba(0,0,0,.18);
+    font-weight:1000;
+    font-size:12px;
+    white-space:nowrap;
+  }
+  .badge.av{border-color: rgba(32,201,151,.25); background: rgba(32,201,151,.10); color:#caffef;}
+  .badge.na{border-color: rgba(255,77,79,.28); background: rgba(255,77,79,.12); color:#ffe1e1;}
 
-.card{
-  background:#1f2937;
-  padding:15px;
-  border-radius:10px;
-  margin-bottom:12px;
-}
+  .qty{
+    display:flex; gap:8px; align-items:center;
+    padding:7px 10px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,.12);
+    background: rgba(0,0,0,.18);
+  }
+  .qbtn{
+    width:28px; height:28px; border-radius:10px;
+    border:1px solid rgba(255,255,255,.14);
+    background: rgba(255,255,255,.06);
+    color:var(--text);
+    font-weight:1000;
+    cursor:pointer;
+  }
+  .qbtn:disabled{opacity:.55; cursor:not-allowed}
+  .qnum{min-width:18px; text-align:center; font-weight:1000; font-size:13px;}
+  .addBtn{
+    padding:9px 12px;
+    border-radius:12px;
+    border:1px solid rgba(32,201,151,.30);
+    background: rgba(32,201,151,.14);
+    color:#caffef;
+    font-weight:1000;
+    font-size:12px;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  .addBtn.primary{
+    background: linear-gradient(135deg, rgba(32,201,151,.95), rgba(32,201,151,.68));
+    border:none;
+    color:#052015;
+  }
+  .addBtn:disabled{opacity:.55; cursor:not-allowed;}
 
-.available{
-  color:#20c997;
-  font-weight:bold;
-}
+  .emptyState{
+    padding:16px;
+    border-radius:18px;
+    border:1px dashed rgba(255,255,255,.18);
+    background: rgba(0,0,0,.14);
+    color: rgba(246,247,251,.90);
+  }
+  .emptyTitle{ font-weight:1000; margin-bottom:6px; }
+  .emptySub{ font-size:12px; color: rgba(246,247,251,.65); line-height:1.35; }
 
-.not{
-  color:#ff4d4f;
-  font-weight:bold;
-}
+  /* Right links */
+  .links{display:grid; gap:10px; margin-top:10px;}
+  .linkBtn{
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    padding:12px 12px;
+    border-radius:16px;
+    border:1px solid rgba(255,255,255,.12);
+    background: rgba(255,255,255,.06);
+    transition: transform .12s ease, background .12s ease;
+  }
+  .linkBtn:hover{transform: translateY(-1px); background: rgba(255,255,255,.09);}
+  .lL{display:flex; gap:10px; align-items:center; min-width:0;}
+  .ic{
+    width:34px; height:34px; border-radius:12px;
+    display:grid; place-items:center;
+    background: rgba(0,0,0,.22);
+    border:1px solid rgba(255,255,255,.12);
+    flex:0 0 auto;
+  }
+  .lt{min-width:0;}
+  .lt .t{font-weight:1000; font-size:13px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .lt .s{font-size:12px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .arr{opacity:.8; font-size:18px;}
 
-button{
-  padding:8px 12px;
-  border:none;
-  border-radius:6px;
-  background:#20c997;
-  font-weight:bold;
-  cursor:pointer;
-}
+  /* Cart bar + Drawer */
+  .cartBar{
+    position:fixed; left:0; right:0; bottom:0; z-index:60;
+    background: rgba(11,15,20,.90);
+    backdrop-filter: blur(10px);
+    border-top:1px solid rgba(255,255,255,.10);
+  }
+  .cartInner{
+    max-width:var(--max); margin:0 auto;
+    padding:12px 14px;
+    display:flex; gap:12px; align-items:center; justify-content:space-between;
+  }
+  .checkoutBtn{
+    padding:12px 14px;
+    border-radius:14px;
+    border:none;
+    background: linear-gradient(135deg, rgba(32,201,151,.95), rgba(32,201,151,.70));
+    color:#052015;
+    font-weight:1100;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  .ghostBtn{
+    padding:12px 12px;
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,.14);
+    background: rgba(255,255,255,.06);
+    color:var(--text);
+    font-weight:1000;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  .drawerOverlay{
+    position:fixed; inset:0; z-index:80;
+    background: rgba(0,0,0,.55);
+    display:none;
+    align-items:flex-end;
+    justify-content:center;
+    padding:14px;
+  }
+  .drawer{
+    width:min(760px, 100%);
+    background: rgba(18,24,36,.92);
+    border:1px solid rgba(255,255,255,.10);
+    border-radius: 24px;
+    box-shadow: var(--shadow);
+    overflow:hidden;
+    max-height: 90vh;
+    display:flex;
+    flex-direction:column;
+  }
+  .drawerHead{
+    padding:14px;
+    display:flex; align-items:center; justify-content:space-between; gap:10px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  .drawerHead h3{margin:0; font-size:15px;}
+  .closeBtn{
+    width:40px; height:40px; border-radius:14px;
+    border:1px solid rgba(255,255,255,.14);
+    background: rgba(255,255,255,.06);
+    color:var(--text);
+    font-weight:1000;
+    cursor:pointer;
+  }
+  .drawerBody{padding:14px; overflow:auto;}
+  .cartList{display:grid; gap:10px;}
+  .cartItem{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    background: rgba(0,0,0,.18);
+    border:1px solid rgba(255,255,255,.10);
+    border-radius: 16px;
+    padding:12px;
+  }
+  .cartItem .name{font-weight:1000; font-size:13px; margin:0 0 2px;}
+  .cartItem .meta{font-size:12px; color:var(--muted);}
+  .drawerFoot{
+    padding:14px;
+    border-top:1px solid rgba(255,255,255,.08);
+    display:grid; gap:12px;
+    background: rgba(0,0,0,.12);
+  }
+  .formGrid{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  @media (max-width: 560px){ .formGrid{grid-template-columns:1fr;} }
+  label{font-size:12px; color:rgba(246,247,251,.78); font-weight:900;}
+  input, textarea, select{
+    width:100%;
+    background: rgba(0,0,0,.18);
+    border:1px solid rgba(255,255,255,.12);
+    color:var(--text);
+    border-radius:14px;
+    padding:10px 12px;
+    outline:none;
+    font-size:14px;
+  }
+  textarea{min-height:76px; resize:vertical;}
 
-.floatSocial{
-  position:fixed;
-  right:12px;
-  top:110px;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  z-index:9999;
-}
+  .payBox{
+    border:1px solid rgba(255,255,255,.12);
+    background: rgba(255,255,255,.04);
+    border-radius:16px;
+    padding:12px;
+    display:grid;
+    gap:8px;
+  }
+  .payRow{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;}
+  .mutedSmall{font-size:12px; color:rgba(246,247,251,.60); line-height:1.35;}
+  .payId{font-weight:1000;}
+  .qr{
+    width:180px; max-width:100%;
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,.12);
+    background: rgba(0,0,0,.18);
+    padding:10px;
+    display:grid; place-items:center;
+  }
+  .qr img{max-width:100%; height:auto; display:block; border-radius:10px;}
 
-.floatBtn{
-  width:45px;
-  height:45px;
-  border-radius:14px;
-  background:#1f2937;
-  display:grid;
-  place-items:center;
-  color:#fff;
-  text-decoration:none;
-  font-weight:bold;
-  border:1px solid rgba(255,255,255,.2);
-}
-
-.mantaeBtn{
-  display:block;
-  text-align:center;
-  padding:14px;
-  margin:15px;
-  border-radius:14px;
-  background:#20c997;
-  color:#052015;
-  font-weight:900;
-  text-decoration:none;
-}
+  .toast{
+    position:fixed; left:50%; bottom:84px; transform:translateX(-50%);
+    background: rgba(0,0,0,.75);
+    border:1px solid rgba(255,255,255,.12);
+    color:rgba(246,247,251,.95);
+    padding:10px 12px;
+    border-radius:14px;
+    display:none;
+    z-index:999;
+    max-width: 92vw;
+    font-size:13px;
+  }
 </style>
 </head>
 
 <body>
 
-<header>
-  <div class="logoWrap">
-    <img src="assets/logo.png" alt="TasteHub Logo">
-    <div>
-      <h1>TasteHub</h1>
-      <small>Homemade Veg Meals • Kannuru Nearby</small><br>
-      <small>FSSAI: 21226008000011</small>
+<!-- HEADER -->
+<div class="appbar">
+  <div class="appbarInner">
+    <div class="brandRow">
+      <!-- Put your logo file in SAME folder as index.html -->
+      <div class="logoWrap" title="TasteHub">
+        <img src="logo.png" alt="TasteHub Logo"
+             onerror="this.style.display='none'; this.parentElement.textContent='TH'; this.parentElement.style.fontWeight='1000';">
+      </div>
+
+      <div class="titleBlock">
+        <h1>TasteHub</h1>
+        <div class="meta">
+          J 1301, Kolte Patil Raaga, Kannuru, Bengaluru 560077<br>
+          FSSAI: 21226008000011
+        </div>
+      </div>
+    </div>
+
+    <div class="chips">
+      <span class="chip brand">100% Veg</span>
+      <span class="chip" id="dateChip">Tomorrow Breakfast</span>
     </div>
   </div>
-  <div style="background:#20c997;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:bold;color:#052015;">
-    100% Veg
+</div>
+
+<div class="wrap">
+  <div class="grid">
+    <!-- LEFT: MENU -->
+    <div class="panel">
+      <div class="pad">
+        <div class="row">
+          <div style="font-weight:1000;">Menu</div>
+          <span class="chip brand">Kannuru Nearby Only</span>
+        </div>
+        <p class="sub">Add items to cart and checkout on WhatsApp or order via Mantae.</p>
+      </div>
+
+      <div class="tabs" id="tabs"></div>
+
+      <div class="sectionTitle" id="sectionTitle">Items</div>
+      <div class="sectionInfo" id="sectionInfo"></div>
+      <div class="menuGrid" id="menuGrid"></div>
+    </div>
+
+    <!-- RIGHT: LINKS + ABOUT -->
+    <div class="panel">
+      <div class="pad">
+        <div class="row">
+          <div style="font-weight:1000;">Quick Links</div>
+          <span class="chip">Fast access</span>
+        </div>
+
+        <div class="links">
+          <a class="linkBtn" href="https://wa.me/919632035612" target="_blank" rel="noopener">
+            <div class="lL"><div class="ic">💬</div><div class="lt"><div class="t">Order on WhatsApp</div><div class="s">Send your order instantly</div></div></div>
+            <div class="arr">›</div>
+          </a>
+
+          <a class="linkBtn" href="https://play.google.com/store/apps/details?id=com.mantae.user&pcampaignid=web_share" target="_blank" rel="noopener">
+            <div class="lL"><div class="ic">🛵</div><div class="lt"><div class="t">Order on Mantae</div><div class="s">Download app & order</div></div></div>
+            <div class="arr">›</div>
+          </a>
+
+          <a class="linkBtn" href="https://www.instagram.com/tastehub_22/" target="_blank" rel="noopener">
+            <div class="lL"><div class="ic">📷</div><div class="lt"><div class="t">Instagram</div><div class="s">@tastehub_22</div></div></div>
+            <div class="arr">›</div>
+          </a>
+
+          <a class="linkBtn" href="https://www.facebook.com/profile.php?id=61587586960844" target="_blank" rel="noopener">
+            <div class="lL"><div class="ic">f</div><div class="lt"><div class="t">Facebook</div><div class="s">TasteHub page</div></div></div>
+            <div class="arr">›</div>
+          </a>
+
+          <a class="linkBtn" href="https://maps.app.goo.gl/ZkxNT4HRU3ppFe65A" target="_blank" rel="noopener">
+            <div class="lL"><div class="ic">📍</div><div class="lt"><div class="t">Google Maps</div><div class="s">Kolte Patil Raaga</div></div></div>
+            <div class="arr">›</div>
+          </a>
+        </div>
+
+        <div class="sub" style="margin-top:12px;">
+          <b>About TasteHub:</b><br>
+          I’m <b>Neha Pathak</b>, Chef & Owner of TasteHub. Started in <b>2023</b> from my residence (Kolte Patil Raaga) and built a WhatsApp community for daily homemade veg meals.
+        </div>
+
+        <div class="sub" style="margin-top:10px;">
+          ⭐⭐⭐⭐☆ <b>4.6</b> (Google feedback)<br>
+          <span style="color:rgba(246,247,251,.7)">Fresh homemade food, clean taste, and on-time updates.</span>
+        </div>
+      </div>
+    </div>
   </div>
-</header>
-
-<!-- Floating Social -->
-<div class="floatSocial">
-  <a class="floatBtn" href="https://www.instagram.com/tastehub_22/" target="_blank">📷</a>
-  <a class="floatBtn" href="https://www.facebook.com/profile.php?id=61587586960844" target="_blank">f</a>
 </div>
 
-<!-- Mantae Button -->
-<a class="mantaeBtn" href="https://play.google.com/store/apps/details?id=com.mantae.user&pcampaignid=web_share" target="_blank">
-🚀 ORDER NOW ON MANTAE APP
-</a>
-
-<div class="section">
-
-<h2>Breakfast (Tomorrow)</h2>
-
-<div class="card">
-  <strong>Idly (4 Pieces) with Sambar & Chutney – ₹90</strong><br>
-  Extra Idly – ₹15<br><br>
-  <span class="available">Available</span>
-</div>
-
-</div>
-
-<div class="section">
-<h2>Lunch</h2>
-
-<div class="card">
-  <span class="not">Not Available</span>
-</div>
-</div>
-
-<div class="section">
-<h2>Snacks</h2>
-
-<div class="card">
-  <span class="not">Not Available</span>
-</div>
-</div>
-
-<div class="section">
-<h2>Dinner</h2>
-
-<div class="card">
-  <span class="not">Not Available</span>
-</div>
-</div>
-
-<div class="section">
-  <div class="card">
-    <strong>About TasteHub</strong><br><br>
-    I’m <b>Neha Pathak</b>, Chef & Owner of TasteHub.  
-    Started in 2023 from my residence at Kolte Patil Raaga, Kannuru.  
-    We serve fresh homemade vegetarian meals daily to our WhatsApp community.
+<!-- Cart Bar -->
+<div class="cartBar" id="cartBar" style="display:none;">
+  <div class="cartInner">
+    <div style="min-width:0">
+      <div style="font-weight:1000; font-size:14px;" id="cartSummary">0 items</div>
+      <div style="font-size:12px; color:var(--muted);" id="cartHint">Open cart to pay & checkout</div>
+    </div>
+    <div style="display:flex; gap:10px; align-items:center;">
+      <button class="ghostBtn" id="viewCartBtn" type="button">View Cart</button>
+      <button class="checkoutBtn" id="checkoutBtn" type="button">Checkout</button>
+    </div>
   </div>
 </div>
 
-</body>
-</html>
+<!-- Drawer -->
+<div class="drawerOverlay" id="drawerOverlay">
+  <div class="drawer">
+    <div class="drawerHead">
+      <h3>Cart & Checkout</h3>
+      <button class="closeBtn" id="closeDrawer" type="button">✕</button>
+    </div>
+
+    <div class="drawerBody">
+      <div class="cartList" id="cartList"></div>
+    </div>
+
+    <div class="drawerFoot">
+      <div class="formGrid">
+        <div><label for="custName">Name *</label><input id="custName" placeholder="Customer name" /></div>
+        <div><label for="custPhone">Phone (optional)</label><input id="custPhone" placeholder="10-digit number" inputmode="numeric" /></div>
+      </div>
+
+      <div class="formGrid">
+        <div><label for="custFlat">Apartment / Flat *</label><input id="custFlat" placeholder="J 1301, Raaga..." /></div>
+        <div>
+          <label for="custTime">Preferred Meal</label>
+          <select id="custTime">
+            <option value="Breakfast">Breakfast</option>
+            <option value="Lunch">Lunch</option>
+            <option value="Snacks">Snacks</option>
+            <option value="Dinner">Dinner</option>
+          </select>
+        </div>
+      </div>
+
+      <div><label for="custNotes">Notes (optional)</label><textarea id="custNotes" placeholder="Less spicy, no onion/garlic, etc."></textarea></div>
+
+      <div class="payBox">
+        <div class="payRow">
+          <div>
+            <div style="font-weight:1000;">Pay by UPI</div>
+            <div class="mutedSmall">UPI ID: <span class="payId" id="upiIdText"></span></div>
+          </div>
+          <button class="ghostBtn" id="copyUpiBtn" type="button">Copy UPI</button>
+        </div>
+
+        <div class="payRow">
+          <div class="qr" title="Upload upi-qr.png in same folder">
+            <img id="qrImg" src="upi-qr.png" alt="UPI QR"
+                 onerror="this.style.display='none'; this.parentElement.innerHTML='Upload <b>upi-qr.png</b><br><span style=&quot;font-size:12px;color:rgba(246,247,251,.65)&quot;>to show QR here</span>';">
+          </div>
+          <div style="flex:1; min-width:200px;">
+            <div class="mutedSmall">Optional: Enter UTR/Txn ID after payment</div>
+            <input id="txnId" placeholder="UTR / Transaction ID (optional)" />
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
+              <button class="checkoutBtn" id="invoiceBtn" type="button">Invoice</button>
+              <button class="ghostBtn" id="clearCart" type="button">Clear</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="checkoutBtn" id="drawerCheckout" type="button">📲 Send Order on WhatsApp</button>
+      <div class="mutedSmall">Snacks & Dinner show Not Available today.</div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================
+   EDIT AREA (ONLY)
+   ========================= */
+const WHATSAPP_NUMBER = "919632035612";
+const UPI_ID = "email.vikashpathak-1@okicici";
+
+/* Availability */
+const SECTION_AVAILABLE = {
+  breakfast: true,
+  lunch: true,      // keep true; if no lunch menu today, set false
+  snacks: false,    // as requested
+  dinner: false     // as requested
+};
+
+/* Tomorrow Breakfast Menu */
+const MENU = {
+  breakfast: [
+    { name: "Idli (4 pcs) with Sambar & Chutney", price: 90, desc: "Tomorrow Breakfast" },
+    { name: "Extra Idli", price: 15, desc: "Add-on" }
+  ],
+  lunch: [],   // add lunch items here when you want
+  snacks: [],
+  dinner: []
+};
+
+const NOTE_BY_SECTION = {
+  breakfast: "Please order for breakfast before 7 AM.",
+  lunch: "",
+  snacks: "Not available right now.",
+  dinner: "Not available right now."
+};
+/* ========================= */
+
+const sections = [
+  {key:'breakfast', label:'Breakfast'},
+  {key:'lunch', label:'Lunch'},
+  {key:'snacks', label:'Snacks'},
+  {key:'dinner', label:'Dinner'}
+];
+
+let act

@@ -1,189 +1,172 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TasteHub | Homemade Veg Meals – Kannuru</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TasteHub</title>
 
 <style>
-body{
-  margin:0;
-  font-family:Arial, sans-serif;
-  background:#0b0f14;
-  color:#fff;
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f8f8f8;
 }
 
-header{
-  padding:15px;
-  background:#111827;
-  border-bottom:1px solid #222;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+/* HEADER */
+header {
+    background: #ff6b6b;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    font-size: 24px;
+    font-weight: bold;
 }
 
-.logoWrap{
-  display:flex;
-  align-items:center;
-  gap:12px;
+/* SLIDER */
+.slider {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
 }
 
-.logoWrap img{
-  width:55px;
-  height:55px;
-  border-radius:16px;
-  object-fit:cover;
-  border:1px solid rgba(255,255,255,.2);
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: none;
 }
 
-h1{
-  margin:0;
-  font-size:20px;
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-small{
-  color:#bbb;
-  font-size:12px;
+/* MENU */
+.menu {
+    padding: 20px;
 }
 
-.section{
-  padding:15px;
+.menu h2 {
+    text-align: center;
+    color: #333;
 }
 
-.card{
-  background:#1f2937;
-  padding:15px;
-  border-radius:10px;
-  margin-bottom:12px;
+/* GRID */
+.menu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
 }
 
-.available{
-  color:#20c997;
-  font-weight:bold;
+/* CARD */
+.card {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.not{
-  color:#ff4d4f;
-  font-weight:bold;
+.card img {
+    width: 100%;
+    border-radius: 10px;
 }
 
-button{
-  padding:8px 12px;
-  border:none;
-  border-radius:6px;
-  background:#20c997;
-  font-weight:bold;
-  cursor:pointer;
+.card h3 {
+    margin: 10px 0 5px;
 }
 
-.floatSocial{
-  position:fixed;
-  right:12px;
-  top:110px;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  z-index:9999;
+.price {
+    color: green;
+    font-weight: bold;
 }
 
-.floatBtn{
-  width:45px;
-  height:45px;
-  border-radius:14px;
-  background:#1f2937;
-  display:grid;
-  place-items:center;
-  color:#fff;
-  text-decoration:none;
-  font-weight:bold;
-  border:1px solid rgba(255,255,255,.2);
+/* PARTY COLUMN */
+.party {
+    background: #fff3cd;
+    padding: 15px;
+    border-radius: 10px;
 }
 
-.mantaeBtn{
-  display:block;
-  text-align:center;
-  padding:14px;
-  margin:15px;
-  border-radius:14px;
-  background:#20c997;
-  color:#052015;
-  font-weight:900;
-  text-decoration:none;
+footer {
+    text-align: center;
+    padding: 10px;
+    background: #333;
+    color: white;
 }
 </style>
 </head>
 
 <body>
 
-<header>
-  <div class="logoWrap">
-    <img src="assets/logo.png" alt="TasteHub Logo">
-    <div>
-      <h1>TasteHub</h1>
-      <small>Homemade Veg Meals • Kannuru Nearby</small><br>
-      <small>FSSAI: 21226008000011</small>
+<header>🍴 TasteHub</header>
+
+<!-- SLIDER -->
+<div class="slider">
+    <div class="slide">
+        <img src="rasgulla.jpg" alt="Mini Rasgulla">
     </div>
-  </div>
-  <div style="background:#20c997;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:bold;color:#052015;">
-    100% Veg
-  </div>
-</header>
-
-<!-- Floating Social -->
-<div class="floatSocial">
-  <a class="floatBtn" href="https://www.instagram.com/tastehub_22/" target="_blank">📷</a>
-  <a class="floatBtn" href="https://www.facebook.com/profile.php?id=61587586960844" target="_blank">f</a>
+    <div class="slide">
+        <img src="gujiya.jpg" alt="Gujiya">
+    </div>
 </div>
 
-<!-- Mantae Button -->
-<a class="mantaeBtn" href="https://play.google.com/store/apps/details?id=com.mantae.user&pcampaignid=web_share" target="_blank">
-🚀 ORDER NOW ON MANTAE APP
-</a>
+<!-- MENU -->
+<div class="menu">
+    <h2>🍽 Menu</h2>
 
-<div class="section">
+    <div class="menu-grid">
 
-<h2>Breakfast (Tomorrow)</h2>
+        <!-- SWEET CORNER -->
+        <div class="card">
+            <h3>🍬 Sweet Corner</h3>
 
-<div class="card">
-  <strong>Idly (4 Pieces) with Sambar & Chutney – ₹90</strong><br>
-  Extra Idly – ₹15<br><br>
-  <span class="available">Available</span>
+            <p><strong>Mini Rasgulla</strong></p>
+            <p>3 pcs box</p>
+            <p class="price">₹36</p>
+
+            <hr>
+
+            <p><strong>Gujiya (Pedkiya)</strong></p>
+            <p>Rich Mawa & Dry Fruits Filling</p>
+            <p class="price">₹30 per piece</p>
+        </div>
+
+        <!-- PARTY ORDER -->
+        <div class="party">
+            <h3>🎉 Party Orders Available</h3>
+
+            <p>✔ Mini Rasgulla (Bulk)</p>
+            <p>✔ Gujiya (Bulk)</p>
+            <p>✔ Custom Quantity Available</p>
+            <p>✔ Fresh Homemade Preparation</p>
+
+            <p><b>Contact for Orders 📞</b></p>
+        </div>
+
+    </div>
 </div>
 
-</div>
+<footer>
+    ❤️ Homemade with Love | TasteHub
+</footer>
 
-<div class="section">
-<h2>Lunch</h2>
+<!-- SCRIPT FOR SLIDER -->
+<script>
+let slides = document.querySelectorAll(".slide");
+let index = 0;
 
-<div class="card">
-  <span class="not">Not Available</span>
-</div>
-</div>
+function showSlide() {
+    slides.forEach((slide) => slide.style.display = "none");
+    index++;
+    if(index > slides.length) { index = 1; }
+    slides[index - 1].style.display = "block";
+    setTimeout(showSlide, 3000);
+}
 
-<div class="section">
-<h2>Snacks</h2>
-
-<div class="card">
-  <span class="not">Not Available</span>
-</div>
-</div>
-
-<div class="section">
-<h2>Dinner</h2>
-
-<div class="card">
-  <span class="not">Not Available</span>
-</div>
-</div>
-
-<div class="section">
-  <div class="card">
-    <strong>About TasteHub</strong><br><br>
-    I’m <b>Neha Pathak</b>, Chef & Owner of TasteHub.  
-    Started in 2023 from my residence at Kolte Patil Raaga, Kannuru.  
-    We serve fresh homemade vegetarian meals daily to our WhatsApp community.
-  </div>
-</div>
+showSlide();
+</script>
 
 </body>
 </html>

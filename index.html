@@ -46,6 +46,28 @@ small{
   font-size:12px;
 }
 
+/* SLIDER */
+.slider{
+  width:100%;
+  height:220px;
+  overflow:hidden;
+  position:relative;
+}
+
+.slide{
+  position:absolute;
+  width:100%;
+  height:100%;
+  display:none;
+}
+
+.slide img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* SECTION */
 .section{
   padding:15px;
 }
@@ -74,6 +96,14 @@ button{
   background:#20c997;
   font-weight:bold;
   cursor:pointer;
+}
+
+/* PARTY BOX */
+.partyBox{
+  background:#1f2937;
+  padding:15px;
+  border-radius:10px;
+  border:1px dashed #20c997;
 }
 
 .floatSocial{
@@ -117,7 +147,7 @@ button{
 
 <header>
   <div class="logoWrap">
-    <img src="assets/logo.png" alt="TasteHub Logo">
+    <img src="assets/logo.png">
     <div>
       <h1>TasteHub</h1>
       <small>Homemade Veg Meals • Kannuru Nearby</small><br>
@@ -128,6 +158,16 @@ button{
     100% Veg
   </div>
 </header>
+
+<!-- SLIDER ADDED -->
+<div class="slider">
+  <div class="slide">
+    <img src="rasgulla.jpg" alt="Mini Rasgulla">
+  </div>
+  <div class="slide">
+    <img src="gujiya.jpg" alt="Gujiya">
+  </div>
+</div>
 
 <!-- Floating Social -->
 <div class="floatSocial">
@@ -154,7 +194,6 @@ button{
 
 <div class="section">
 <h2>Lunch</h2>
-
 <div class="card">
   <span class="not">Not Available</span>
 </div>
@@ -162,7 +201,6 @@ button{
 
 <div class="section">
 <h2>Snacks</h2>
-
 <div class="card">
   <span class="not">Not Available</span>
 </div>
@@ -170,10 +208,34 @@ button{
 
 <div class="section">
 <h2>Dinner</h2>
-
 <div class="card">
   <span class="not">Not Available</span>
 </div>
+</div>
+
+<!-- SWEET CORNER ADDED -->
+<div class="section">
+<h2>🍬 Sweet Corner</h2>
+
+<div class="card">
+  <strong>Mini Rasgulla</strong><br>
+  3 pcs box – ₹36<br><br>
+
+  <strong>Gujiya (Pedkiya)</strong><br>
+  Rich Mawa & Dry Fruits Filling<br>
+  ₹30 per piece
+</div>
+
+<!-- PARTY ORDER COLUMN -->
+<div class="partyBox">
+  <strong>🎉 Party Orders Available</strong><br><br>
+  ✔ Mini Rasgulla (Bulk)<br>
+  ✔ Gujiya (Bulk)<br>
+  ✔ Custom Quantity Available<br>
+  ✔ Fresh Homemade<br><br>
+  📞 Contact us for orders
+</div>
+
 </div>
 
 <div class="section">
@@ -184,6 +246,21 @@ button{
     We serve fresh homemade vegetarian meals daily to our WhatsApp community.
   </div>
 </div>
+
+<!-- SLIDER SCRIPT -->
+<script>
+let slides = document.querySelectorAll(".slide");
+let index = 0;
+
+function showSlide(){
+  slides.forEach(s => s.style.display = "none");
+  index++;
+  if(index > slides.length){ index = 1; }
+  slides[index-1].style.display = "block";
+  setTimeout(showSlide, 3000);
+}
+showSlide();
+</script>
 
 </body>
 </html>
